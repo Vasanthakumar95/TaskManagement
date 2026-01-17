@@ -38,6 +38,11 @@ TaskManagement/
 - Node.js 20+
 - Maven 3.9+
 
+### IDE/Tools
+- IntelliJ Idea
+- Docker Desktop
+- VS Code
+
 ### Start Everything
 
 ```bash
@@ -263,6 +268,7 @@ docker compose logs postgres
 - [Frontend](./frontend/web/README.md)
 - [DevOps Setup](./devops/README.md)
 - [API Documentation](./docs/API.md)
+- [Docker Cheat Sheet](/docs/docker-cheat-sheet.md)
 
 ## 🤝 Contributing
 
