@@ -1,0 +1,264 @@
+<div class="container">
+  <header>
+    <h1>📝 Task Management</h1>
+    <p>Learn Full Stack Development</p>
+  </header>
+
+  <!-- Create New Task Form -->
+  <div class="card">
+    <h2>Create New Task</h2>
+    <form (ngSubmit)="createTask()">
+      <div class="form-group">
+        <input
+          type="text"
+          [(ngModel)]="newTask.title"
+          name="title"
+          placeholder="Task title *"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <textarea
+          [(ngModel)]="newTask.description"
+          name="description"
+          placeholder="Description (optional)"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <select [(ngModel)]="newTask.status" name="status">
+          <option value="TODO">To Do</option>
+          <option value="IN_PROGRESS">In Progress</option>
+          <option value="DONE">Done</option>
+        </select>
+      </div>
+
+      <!-- File Upload Section -->
+      <div class="form-group">
+        <label class="file-upload-label">Attachments (optional)</label>
+        <div
+          class="drop-zone-small"
+          [class.dragging]="isNewTaskDragging"
+          (dragover)="onNewTaskDragOver($event)"
+          (dragleave)="onNewTaskDragLeave($event)"
+          (drop)="onNewTaskDrop($event)"
+        >
+          <div class="drop-zone-small-content">
+            <span class="upload-icon-small">📎</span>
+            <span class="drop-text-small">Drag files here or</span>
+            <label for="new-task-file-input" class="btn-link">browse</label>
+            <input
+              id="new-task-file-input"
+              type="file"
+              multiple
+              (change)="onNewTaskFileSelected($event)"
+              style="display: none"
+            />
+          </div>
+        </div>
+
+        <!-- Selected Files List -->
+        <div *ngIf="newTaskFiles.length > 0" class="selected-files">
+          <div *ngFor="let file of newTaskFiles; let i = index" class="selected-file-item">
+            <span class="file-icon-small">📄</span>
+            <span class="file-name-small">{{ file.name }}</span>
+            <span class="file-size-small">{{ formatFileSize(file.size) }}</span>
+            <button type="button" (click)="removeNewTaskFile(i)" class="btn-remove">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Add Task</button>
+    </form>
+  </div>
+
+  <!-- Filter and Search -->
+  <div class="filters">
+    <div class="filter-buttons">
+      <button
+        (click)="filterByStatus('')"
+        [class.active]="filterStatus === ''"
+      >All</button>
+      <button
+        (click)="filterByStatus('TODO')"
+        [class.active]="filterStatus === 'TODO'"
+      >To Do</button>
+      <button
+        (click)="filterByStatus('IN_PROGRESS')"
+        [class.active]="filterStatus === 'IN_PROGRESS'"
+      >In Progress</button>
+      <button
+        (click)="filterByStatus('DONE')"
+        [class.active]="filterStatus === 'DONE'"
+      >Done</button>
+    </div>
+
+    <div class="search-box">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (keyup.enter)="searchTasks()"
+        placeholder="Search tasks..."
+      />
+      <button (click)="searchTasks()" class="btn-search">Search</button>
+    </div>
+  </div>
+
+  <!-- Edit Task Modal -->
+  <div class="modal" *ngIf="isEditing && selectedTask">
+    <div class="modal-content">
+      <h2>Edit Task</h2>
+      <form (ngSubmit)="updateTask()">
+        <div class="form-group">
+          <input
+            type="text"
+            [(ngModel)]="selectedTask.title"
+            name="editTitle"
+            placeholder="Task title"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <textarea
+            [(ngModel)]="selectedTask.description"
+            name="editDescription"
+            placeholder="Description"
+            rows="3"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <select [(ngModel)]="selectedTask.status" name="editStatus">
+            <option value="TODO">To Do</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="DONE">Done</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button type="button" (click)="cancelEdit()" class="btn btn-secondary">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Tasks List -->
+  <div class="tasks-grid">
+    <div
+      *ngFor="let task of filteredTasks"
+      class="task-card"
+      [style.border-left]="'4px solid ' + getStatusColor(task.status)"
+    >
+      <div class="task-header">
+        <h3>{{ task.title }}</h3>
+        <span
+          class="status-badge"
+          [style.background-color]="getStatusColor(task.status)"
+        >
+          {{ task.status.replace('_', ' ') }}
+        </span>
+      </div>
+
+      <p class="task-description">{{ task.description || 'No description' }}</p>
+
+      <div class="task-meta">
+        <small>Created: {{ task.createdAt | date:'short' }}</small>
+      </div>
+
+      <div class="task-actions">
+        <button (click)="openFileUpload(task)" class="btn btn-attach">📎 Files</button>
+        <button (click)="editTask(task)" class="btn btn-edit">Edit</button>
+        <button (click)="deleteTask(task.id)" class="btn btn-delete">Delete</button>
+      </div>
+
+      <!-- Attachments Preview -->
+      <div *ngIf="getAttachments(task.id).length > 0" class="attachments-preview">
+        <div class="attachment-count">
+          📎 {{ getAttachments(task.id).length }} file(s)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="filteredTasks.length === 0" class="empty-state">
+    <p>No tasks found. Create your first task!</p>
+  </div>
+
+  <!-- File Upload Modal -->
+  <div class="modal" *ngIf="showFileUpload" (click)="closeFileUpload()">
+    <div class="modal-content file-upload-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>📎 Attachments for: {{ currentTaskForUpload?.title }}</h2>
+        <button class="close-btn" (click)="closeFileUpload()">✕</button>
+      </div>
+
+      <!-- Drag and Drop Zone -->
+      <div
+        class="drop-zone"
+        [class.dragging]="isDragging"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)"
+      >
+        <div class="drop-zone-content">
+          <div class="upload-icon">📁</div>
+          <p class="drop-text">Drag and drop files here</p>
+          <p class="drop-subtext">or</p>
+          <label for="file-input" class="btn btn-primary">Choose Files</label>
+          <input
+            id="file-input"
+            type="file"
+            multiple
+            (change)="onFileSelected($event)"
+            style="display: none"
+          />
+        </div>
+      </div>
+
+      <!-- Upload Progress -->
+      <div *ngIf="uploadProgress" class="upload-progress">
+        <div class="spinner"></div>
+        <p>Uploading...</p>
+      </div>
+
+      <!-- Existing Attachments -->
+      <div class="attachments-list" *ngIf="currentTaskForUpload?.id">
+        <h3>Uploaded Files</h3>
+        <div *ngIf="getAttachments(currentTaskForUpload?.id || 0).length === 0" class="no-files">
+          No files uploaded yet
+        </div>
+        <div
+          *ngFor="let attachment of getAttachments(currentTaskForUpload?.id || 0)"
+          class="attachment-item"
+        >
+          <div class="attachment-info">
+            <span class="file-icon">📄</span>
+            <div class="file-details">
+              <div class="file-name">{{ attachment.originalFileName }}</div>
+              <div class="file-meta">
+                {{ formatFileSize(attachment.fileSize) }} •
+                {{ attachment.uploadedAt | date:'short' }}
+              </div>
+            </div>
+          </div>
+          <div class="attachment-actions">
+            <button
+              (click)="downloadAttachment(currentTaskForUpload!.id!, attachment)"
+              class="btn-icon"
+              title="Download"
+            >⬇️</button>
+            <button
+              (click)="deleteAttachment(currentTaskForUpload!.id!, attachment)"
+              class="btn-icon btn-danger"
+              title="Delete"
+            >🗑️</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

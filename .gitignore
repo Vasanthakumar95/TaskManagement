@@ -1,0 +1,33 @@
+cat > .gitignore << 'EOF'
+# Logs
+**/logs/
+*.log
+
+# Maven
+**/target/
+**/.mvn/
+**/mvnw
+**/mvnw.cmd
+
+# Node
+**/node_modules/
+**/dist/
+**/.angular/
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker volumes
+**/volumes/
+
+# Environment
+*.env
+.env.local
+EOF
