@@ -38,9 +38,8 @@ TaskManagement/
 - Node.js 20+
 - Maven 3.9+
 
-### IDE/Tools
+### IDE
 - IntelliJ Idea
-- Docker Desktop
 - VS Code
 
 ### Start Everything
