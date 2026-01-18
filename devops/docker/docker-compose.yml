@@ -1,4 +1,4 @@
-version: '3.8'
+name: taskmanagement
 
 services:
   # PostgreSQL Database
@@ -239,6 +239,14 @@ networks:
 
 volumes:
   postgres_data:
+    name: taskmanagement_postgres_data
+    external: true
   minio_data:
+    name: taskmanagement_minio_data
+    external: true
   elasticsearch_data:
+    name: taskmanagement_elasticsearch_data
+    external: true
   kong_data:
+    name: taskmanagement_kong_data
+    external: true
