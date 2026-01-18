@@ -262,7 +262,7 @@ docker compose logs postgres
 ```
 
 ## Demo
-- ![Docker Desktop](https://github.com/Vasanthakumar95/TaskManagement/blob/7c948bf4d39154a6396512782670d2f765108d39/demo/docker-desktop.mov)
+- ![Docker Desktop](demo/docker-desktop.mov)
 - ![Kong Setup - Terminal](https://user-images.githubusercontent.com)
 - ![BE - task-service](https://user-images.githubusercontent.com)
 - ![BE - notification-service](https://user-images.githubusercontent.com)
