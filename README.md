@@ -265,15 +265,15 @@ docker compose logs postgres
 |  | Artifacts |
 |-------|------|
 | Docker Desktop | ![Docker Desktop](demo/docker-desktop.gif) |
-| Kong Setup - Terminal | ![Kong Setup - Terminal](https://user-images.githubusercontent.com) |
-| BE - task-service | ![BE - task-service](https://user-images.githubusercontent.com) |
-| BE - notification-service | ![BE - notification-service](https://user-images.githubusercontent.com) |
-| WEB | ![WEB](https://user-images.githubusercontent.com) |
-| Kong Manager | ![Kong Manager](https://user-images.githubusercontent.com) |
-| Kibana | ![Kibana](https://user-images.githubusercontent.com) |
-| Kafka UI | ![Kafka UI](https://user-images.githubusercontent.com) |
-| pgAdmin | ![pgAdmin](https://user-images.githubusercontent.com) |
-| minIO | ![minIO](https://user-images.githubusercontent.com) |
+| Kong Setup - Terminal | ![Kong Setup - Terminal](demo/kong-setup-terminal.gif) |
+| BE - task-service | ![BE - task-service](demo/be-task-service.gif) |
+| BE - notification-service | ![BE - notification-service](demo/be-notification-service.gif) |
+| WEB | ![WEB](demo/WEB.gif) |
+| Kong Manager | ![Kong Manager](demo/kong-manager.gif) |
+| Kibana | ![Kibana](demo/kibana.gif) |
+| Kafka UI | ![Kafka UI](demo/kafka-ui.gif) |
+| pgAdmin | ![pgAdmin](demo/pgadmin.gif) |
+| minIO | ![minIO](demo/minio.gif) |
 
 ## 📖 Documentation
 
