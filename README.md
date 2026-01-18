@@ -261,6 +261,18 @@ docker compose restart postgres
 docker compose logs postgres
 ```
 
+## Demo
+- ![Docker Desktop](https://user-images.githubusercontent.com)
+- ![Kong Setup - Terminal](https://user-images.githubusercontent.com)
+- ![BE - task-service](https://user-images.githubusercontent.com)
+- ![BE - notification-service](https://user-images.githubusercontent.com)
+- ![WEB](https://user-images.githubusercontent.com)
+- ![Kong Manager](https://user-images.githubusercontent.com)
+- ![Kibana](https://user-images.githubusercontent.com)
+- ![Kafka UI](https://user-images.githubusercontent.com)
+- ![pgAdmin](https://user-images.githubusercontent.com)
+- ![minIO](https://user-images.githubusercontent.com)
+
 ## 📖 Documentation
 
 - [Backend Services](./backend/README.md)
