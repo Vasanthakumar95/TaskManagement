@@ -172,13 +172,13 @@ docker compose down -v
 
 ```
 ┌─────────────────────────────────────────┐
-│      Angular Web App (Port 4200)       │
+│      Angular Web App (Port 4200)        │
 └──────────────────┬──────────────────────┘
                    │
                    ↓
 ┌──────────────────────────────────────────┐
-│   Kong API Gateway (Port 8000)          │
-│   • Rate Limiting  • CORS  • Logging    │
+│   Kong API Gateway (Port 8000)           │
+│   • Rate Limiting  • CORS  • Logging     │
 └─────────┬─────────────────┬──────────────┘
           │                 │
           ↓                 ↓
@@ -262,16 +262,18 @@ docker compose logs postgres
 ```
 
 ## Demo
-- ![Docker Desktop](demo/docker-desktop.gif)
-- ![Kong Setup - Terminal](https://user-images.githubusercontent.com)
-- ![BE - task-service](https://user-images.githubusercontent.com)
-- ![BE - notification-service](https://user-images.githubusercontent.com)
-- ![WEB](https://user-images.githubusercontent.com)
-- ![Kong Manager](https://user-images.githubusercontent.com)
-- ![Kibana](https://user-images.githubusercontent.com)
-- ![Kafka UI](https://user-images.githubusercontent.com)
-- ![pgAdmin](https://user-images.githubusercontent.com)
-- ![minIO](https://user-images.githubusercontent.com)
+|  | Artifacts |
+|-------|------|
+| Docker Desktop | ![Docker Desktop](demo/docker-desktop.gif) |
+| Kong Setup - Terminal | ![Kong Setup - Terminal](https://user-images.githubusercontent.com) |
+| BE - task-service | ![BE - task-service](https://user-images.githubusercontent.com) |
+| BE - notification-service | ![BE - notification-service](https://user-images.githubusercontent.com) |
+| WEB | ![WEB](https://user-images.githubusercontent.com) |
+| Kong Manager | ![Kong Manager](https://user-images.githubusercontent.com) |
+| Kibana | ![Kibana](https://user-images.githubusercontent.com) |
+| Kafka UI | ![Kafka UI](https://user-images.githubusercontent.com) |
+| pgAdmin | ![pgAdmin](https://user-images.githubusercontent.com) |
+| minIO | ![minIO](https://user-images.githubusercontent.com) |
 
 ## 📖 Documentation
 
