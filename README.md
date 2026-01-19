@@ -76,7 +76,7 @@ ng serve
 ## 🛠️ Tech Stack
 
 ### Frontend
-- **Angular 18** - Web framework
+- **Angular 21** - Web framework
 - **TypeScript** - Type-safe JavaScript
 - **RxJS** - Reactive programming
 - **Tailwind CSS** - Utility-first CSS
