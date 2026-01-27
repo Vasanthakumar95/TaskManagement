@@ -6,6 +6,7 @@ import com.learning.authservice.payload.request.LoginRequest;
 import com.learning.authservice.payload.request.SignupRequest;
 import com.learning.authservice.repository.UserRepository;
 import com.learning.authservice.security.JwtUtils;
+import com.learning.authservice.security.UserDetailsImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,7 +15,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -55,11 +56,14 @@ class AuthControllerTest {
         loginRequest.setPassword("password");
 
         Authentication authentication = mock(Authentication.class);
-        UserDetails userDetails = mock(UserDetails.class);
+        UserDetailsImpl userDetails = mock(UserDetailsImpl.class); // Mock concrete class
 
         when(authenticationManager.authenticate(any())).thenReturn(authentication);
         when(authentication.getPrincipal()).thenReturn(userDetails);
         when(userDetails.getUsername()).thenReturn("testUser");
+        when(userDetails.getId()).thenReturn(1L); // Mock ID
+        when(userDetails.getEmail()).thenReturn("test@test.com"); // Mock Email
+
         when(userRepository.findByUsername("testUser"))
                 .thenReturn(Optional.of(new User("testUser", "password", "test@test.com", "ROLE_USER")));
         when(jwtUtils.generateJwtToken(any())).thenReturn("jwtToken");
